@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState, useEffect } from 'react';
 import {
   CButton,
   CCard,
@@ -32,8 +33,23 @@ import {
   CSwitch
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import usersData from './UsersData'
 
-const CreateUser = () => {
+const CreateUser = ({match}) => {
+  const userSearchResult = usersData.find( user => user.id.toString() === match.params.id)
+  const [showExpireDate, setExpireDateVisibility] = useState(false)
+  const [user, setUser] = useState(userSearchResult)
+  // to debug: remove
+  // useEffect(() => {
+
+  // })
+  const handleExpireDateChange = (e) => {
+    if(e.target.value === 'yes'){
+      setExpireDateVisibility(true)
+    } else {
+      setExpireDateVisibility(false)
+    }
+  }
 	return (
 		<div>
 			<CCol xs="12" md="12">
@@ -45,10 +61,10 @@ const CreateUser = () => {
               <CForm action="" method="post" encType="multipart/form-data" className="form-horizontal">
                 <CFormGroup row>
                   <CCol md="3">
-                    <CLabel htmlFor="username">Username *</CLabel>
+                    <CLabel htmlFor="username" >Username *</CLabel>
                   </CCol>
                   <CCol xs="12" md="3">
-                    <CInput id="username" name="username" />
+                    <CInput id="username" name="username" value={user ? user.username : ''}/>
                     <CFormText>Choose your username</CFormText>
                   </CCol>
                 </CFormGroup>
@@ -57,11 +73,11 @@ const CreateUser = () => {
                     <CLabel htmlFor="firstname">Full Name *</CLabel>
                   </CCol>
                   <CCol xs="12" md="4">
-                    <CInput id="firstname" name="firstname" placeholder="First Name"/>
+                    <CInput id="firstname" name="firstname" value={user ? user.firstname : ''} placeholder="First Name"/>
                     <CFormText>Enter your first name</CFormText>
                   </CCol>
                   <CCol xs="12" md="4">
-                    <CInput id="lastname" name="lastname" placeholder="Last Name"/>
+                    <CInput id="lastname" name="lastname" value={user ? user.lastname : ''} placeholder="Last Name"/>
                     <CFormText>Now your last name</CFormText>
                   </CCol>
                 </CFormGroup>
@@ -70,7 +86,7 @@ const CreateUser = () => {
                     <CLabel htmlFor="email">Email Address *</CLabel>
                   </CCol>
                   <CCol xs="12" md="8">
-                    <CInput type="email" id="email" name="email" placeholder="Enter Email" autoComplete="email"/>
+                    <CInput type="email" id="email" name="email" value={user ? user.email : ''} placeholder="Enter Email" autoComplete="email"/>
                     <CFormText className="help-block">Please enter your email</CFormText>
                   </CCol>
                 </CFormGroup>
@@ -79,15 +95,15 @@ const CreateUser = () => {
                     <CLabel htmlFor="phone">Phone Number</CLabel>
                   </CCol>
                   <CCol xs="12" md="3">
-                    <CInput id="phone" name="phone" placeholder="(000) 000-0000"/>
-                    <CFormText>Enter your first name</CFormText>
+                    <CInput id="phone" name="phone" value={user ? user.phone : ''} placeholder="(000) 000-0000"/>
+                    <CFormText>Enter your phone number</CFormText>
                   </CCol>
                   <CCol md="2">
                     <CLabel htmlFor="mobile">Mobile Number *</CLabel>
                   </CCol>
                   <CCol xs="12" md="3">
-                    <CInput id="mobile" name="mobile" placeholder="(000) 000-0000"/>
-                    <CFormText>Now your last name</CFormText>
+                    <CInput id="mobile" name="mobile" value={user ? user.mobile : ''} placeholder="(000) 000-0000"/>
+                    <CFormText>Now your mobile number</CFormText>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -112,8 +128,8 @@ const CreateUser = () => {
                   <CCol md="3">
                     <CLabel>Expire</CLabel>
                   </CCol>
-                  <CCol md="3">
-                    <CFormGroup variant="custom-radio" inline>
+                  <CCol md="3" onChange={handleExpireDateChange}>
+                    <CFormGroup variant="custom-radio" inline >
                       <CInputRadio custom id="expire-radio1" name="inline-radios" value="yes" />
                       <CLabel variant="custom-checkbox" htmlFor="expire-radio1">Yes</CLabel>
                     </CFormGroup>
@@ -122,12 +138,14 @@ const CreateUser = () => {
                       <CLabel variant="custom-checkbox" htmlFor="expire-radio2">No</CLabel>
                     </CFormGroup>
                   </CCol>
-                  <CCol md="2">
-                    <CLabel htmlFor="expire-date">Expire date</CLabel>
-                  </CCol>
-                  <CCol xs="12" md="3">
-                    <CInput type="date" id="expire-date" name="expire-date" />
-                  </CCol>
+                  <CFormGroup row  className={showExpireDate ? '' : 'd-none'}>
+                    <CCol md="4">
+                      <CLabel htmlFor="expire-date">Expire date</CLabel>
+                    </CCol>
+                    <CCol md="8">
+                      <CInput type="date" id="expire-date" name="expire-date" />
+                    </CCol>
+                  </CFormGroup>
                 </CFormGroup>
                 <CFormGroup row>
                   <CCol md="3">

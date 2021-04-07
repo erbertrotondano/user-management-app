@@ -1,9 +1,10 @@
 import React from 'react'
 import UserItem from './UserItem'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   CButton,
   CCard,
+  CLink,
   CCardBody,
   CCardFooter,
   CCardHeader,
@@ -63,6 +64,8 @@ const ListUsers = () => {
   // Turning usersData into state
   const [users, setUsers] = useState(usersData)
 
+  const [update, setUpdate] = useState(0)
+
   // Turn on and off the filter
   const toggleFilter = (e) => {
     if(filter.isActive){
@@ -79,13 +82,20 @@ const ListUsers = () => {
     setFilter({...filter, status: e.target.value})
   }
 
+  const handleSearch = (e) => {
+    setUsers(usersData.filter(
+      user => {
+        return (user.name.includes(e.target.value) || user.username.includes(e.target.value) || user.profile.includes(e.target.value))
+      }
+    ))
+  }
 	return (
 		<div> 
 			<CCard>
             <CCardHeader>
               <CRow style={{display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                 <CCol md="2">
-                  <CButton block color="warning">+Add</CButton>
+                  <CButton block color="warning" to="registry">+Add</CButton>
                 </CCol>
                 <CCol md="1" className="offset-1 text-right"> 
                   Status
@@ -100,7 +110,7 @@ const ListUsers = () => {
                   <FaFilter className={filter.isActive ? "" : "text-warning"} onClick={toggleFilter}/>
                 </CCol>
                 <CCol md="4">
-                  <CInput id="search" name="search" placeholder="Search"/>
+                  <CInput id="search" name="search" placeholder="Search" onChange={handleSearch}/>
                 </CCol>
               </CRow>
             </CCardHeader>
@@ -123,10 +133,24 @@ const ListUsers = () => {
                     </td>
                   )
                 ,'actions':
-                (item) => (
+                (user) => (
                   <td>
+                  {console.log(user)}
+                  <CButton
+                    color="info"
+                    variant="ghost"
+                    to={'profile/' + user.id}
+                    >
                     <CIcon name="cil-pencil" className="mx-1"/>
+                  </CButton>
+                  <CButton
+                    color="danger"
+                    variant="ghost"
+                    >
                     <CIcon name="cil-x" className="mx-1"/>
+                  </CButton>
+                    
+                    
                   </td>
                 )
               }}

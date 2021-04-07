@@ -47,7 +47,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Add User',
-        to: '/user/create',
+        to: '/registry',
       },
     ],
   },

@@ -39,6 +39,7 @@ const Users = React.lazy(() => import('./views/users/Users'));
 const User = React.lazy(() => import('./views/users/User'));
 const CreateUser = React.lazy(() => import('./views/users/CreateUser'));
 const ListUsers = React.lazy(() => import('./views/users/ListUsers'));
+const Profile = React.lazy(() => import('./views/users/Profile'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -79,9 +80,10 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', component: Modals },
   { path: '/notifications/toaster', name: 'Toaster', component: Toaster },
   { path: '/widgets', name: 'Widgets', component: Widgets },
-  { path: '/users', exact: true,  name: 'ListUsers', component: ListUsers },
-  { path: '/users/:id', exact: true, name: 'User Details', component: User },
-  { path: '/user/create', exact: true, name: 'Create User', component: CreateUser }
+  { path: '/users', exact: true,  name: 'Users', component: ListUsers },
+  // { path: '/user/edit/:id', exact: true, name: 'User Details', component: CreateUser },
+  { path: '/profile/:id', exact: true, name: 'User Profile', component: Profile },
+  { path: '/registry', exact: true, name: 'Create User', component: CreateUser }
 ];
 
 export default routes;
