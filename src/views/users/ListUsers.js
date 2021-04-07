@@ -1,5 +1,6 @@
 import React from 'react'
 import UserItem from './UserItem'
+import { useState } from 'react';
 import {
   CButton,
   CCard,
@@ -35,24 +36,10 @@ import {
   CBadge
 } from '@coreui/react'
 import { DocsLink } from 'src/reusable'
-
+import { FaFilter } from 'react-icons/fa';
 import usersData from './UsersData'
 import CIcon from '@coreui/icons-react'
-const users = [
-	{
-		id: 1,
-		name: 'Erbert',
-		status: 'active'
-	},{
-		id: 2,
-		name: 'Erick',
-		status: 'active'
-	},{
-		id: 3,
-		name: 'Viviane',
-		status: 'active'
-	}
-]
+
 const fields = ['name', 'username', 'profile' ,'status', 'actions']
 const getBadge = status => {
   switch (status) {
@@ -63,21 +50,69 @@ const getBadge = status => {
     default: return 'primary'
   }
 }
+
+
 const ListUsers = () => {
+
+  const [filter, setFilter] = useState(
+    {
+      isActive: true,
+      status: 'Active'
+    }
+  )
+  // Turning usersData into state
+  const [users, setUsers] = useState(usersData)
+
+  // Turn on and off the filter
+  const toggleFilter = (e) => {
+    if(filter.isActive){
+      console.log(e)
+      setFilter({...filter, isActive: false})  
+      setUsers(users.filter(user => user.status === filter.status))
+    } else {
+      setFilter({...filter, isActive: true})  
+      setUsers(usersData)
+    }
+  }
+  // Handle the filter change
+  const changeFilter = (e) => {
+    setFilter({...filter, status: e.target.value})
+  }
+
 	return (
 		<div> 
 			<CCard>
             <CCardHeader>
-              Users
+              <CRow style={{display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
+                <CCol md="2">
+                  <CButton block color="warning">+Add</CButton>
+                </CCol>
+                <CCol md="1" className="offset-1 text-right"> 
+                  Status
+                </CCol>
+                <CCol md="2">
+                  <CSelect custom name="status" id="status" onChange={changeFilter}>
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
+                    </CSelect>
+                </CCol>
+                <CCol md="1"> 
+                  <FaFilter className={filter.isActive ? "" : "text-warning"} onClick={toggleFilter}/>
+                </CCol>
+                <CCol md="4">
+                  <CInput id="search" name="search" placeholder="Search"/>
+                </CCol>
+              </CRow>
             </CCardHeader>
 
             <CCardBody>
             <CDataTable
-              items={usersData}
+              items={users}
               fields={fields}
               striped
               itemsPerPage={5}
               pagination
+              column-filter
               scopedSlots = {{
                 'status':
                   (item)=>(
