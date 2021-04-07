@@ -1,42 +1,18 @@
 import React from 'react'
-import UserItem from './UserItem'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   CButton,
   CCard,
-  CLink,
   CCardBody,
   CCardFooter,
   CCardHeader,
   CCol,
-  CCollapse,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
-  CFade,
-  CForm,
-  CFormGroup,
-  CFormText,
-  CValidFeedback,
-  CInvalidFeedback,
-  CTextarea,
   CInput,
-  CInputFile,
-  CInputCheckbox,
-  CInputRadio,
-  CInputGroup,
-  CInputGroupAppend,
-  CInputGroupPrepend,
-  CDropdown,
-  CInputGroupText,
-  CLabel,
   CSelect,
   CRow,
-  CSwitch,
   CDataTable,
   CBadge
 } from '@coreui/react'
-import { DocsLink } from 'src/reusable'
 import { FaFilter } from 'react-icons/fa';
 import usersData from './UsersData'
 import CIcon from '@coreui/icons-react'
@@ -64,12 +40,9 @@ const ListUsers = () => {
   // Turning usersData into state
   const [users, setUsers] = useState(usersData)
 
-  const [update, setUpdate] = useState(0)
-
   // Turn on and off the filter
   const toggleFilter = (e) => {
     if(filter.isActive){
-      console.log(e)
       setFilter({...filter, isActive: false})  
       setUsers(users.filter(user => user.status === filter.status))
     } else {
@@ -99,7 +72,7 @@ const ListUsers = () => {
             <CCardHeader>
               <CRow style={{display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                 <CCol md="2">
-                  <CButton block color="warning" to="registry">+Add</CButton>
+                  <CButton block color="warning" className="text-white" to="registry">+Add</CButton>
                 </CCol>
                 <CCol md="1" className="offset-1 text-right"> 
                   Status
@@ -139,7 +112,6 @@ const ListUsers = () => {
                 ,'actions':
                 (user) => (
                   <td>
-                  {console.log(user)}
                   <CButton
                     color="info"
                     variant="ghost"

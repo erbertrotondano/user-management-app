@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   CButton,
   CCard,
@@ -7,30 +7,12 @@ import {
   CCardFooter,
   CCardHeader,
   CCol,
-  CCollapse,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
-  CFade,
   CForm,
   CFormGroup,
   CFormText,
-  CValidFeedback,
-  CInvalidFeedback,
-  CTextarea,
   CInput,
-  CInputFile,
-  CInputCheckbox,
-  CInputRadio,
-  CInputGroup,
-  CInputGroupAppend,
-  CInputGroupPrepend,
-  CDropdown,
-  CInputGroupText,
   CLabel,
-  CSelect,
-  CRow,
-  CSwitch
+  CSelect
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import usersData from './UsersData'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   CButton,
   CCard,
@@ -7,33 +7,17 @@ import {
   CCardFooter,
   CCardHeader,
   CCol,
-  CCollapse,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
-  CFade,
   CForm,
   CFormGroup,
   CFormText,
-  CValidFeedback,
-  CInvalidFeedback,
-  CTextarea,
   CInput,
-  CInputFile,
-  CInputCheckbox,
   CInputRadio,
-  CInputGroup,
-  CInputGroupAppend,
-  CInputGroupPrepend,
-  CDropdown,
-  CInputGroupText,
   CLabel,
-  CSelect,
-  CRow,
-  CSwitch
+  CSelect
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import usersData from './UsersData'
+import InputMask from 'react-input-mask'
 
 const CreateUser = ({match}) => {
   const userSearchResult = usersData.find( user => user.id.toString() === match.params.id)
@@ -64,7 +48,7 @@ const CreateUser = ({match}) => {
                     <CLabel htmlFor="username" >Username *</CLabel>
                   </CCol>
                   <CCol xs="12" md="3">
-                    <CInput id="username" name="username" value={user ? user.username : ''}/>
+                    <CInput id="username" name="username"/>
                     <CFormText>Choose your username</CFormText>
                   </CCol>
                 </CFormGroup>
@@ -73,11 +57,11 @@ const CreateUser = ({match}) => {
                     <CLabel htmlFor="firstname">Full Name *</CLabel>
                   </CCol>
                   <CCol xs="12" md="4">
-                    <CInput id="firstname" name="firstname" value={user ? user.firstname : ''} placeholder="First Name"/>
+                    <CInput id="firstname" name="firstname" placeholder="First Name"/>
                     <CFormText>Enter your first name</CFormText>
                   </CCol>
                   <CCol xs="12" md="4">
-                    <CInput id="lastname" name="lastname" value={user ? user.lastname : ''} placeholder="Last Name"/>
+                    <CInput id="lastname" name="lastname" placeholder="Last Name"/>
                     <CFormText>Now your last name</CFormText>
                   </CCol>
                 </CFormGroup>
@@ -86,7 +70,7 @@ const CreateUser = ({match}) => {
                     <CLabel htmlFor="email">Email Address *</CLabel>
                   </CCol>
                   <CCol xs="12" md="8">
-                    <CInput type="email" id="email" name="email" value={user ? user.email : ''} placeholder="Enter Email" autoComplete="email"/>
+                    <CInput type="email" id="email" name="email" placeholder="Enter Email" autoComplete="email"/>
                     <CFormText className="help-block">Please enter your email</CFormText>
                   </CCol>
                 </CFormGroup>
@@ -95,14 +79,14 @@ const CreateUser = ({match}) => {
                     <CLabel htmlFor="phone">Phone Number</CLabel>
                   </CCol>
                   <CCol xs="12" md="3">
-                    <CInput id="phone" name="phone" value={user ? user.phone : ''} placeholder="(000) 000-0000"/>
-                    <CFormText>Enter your phone number</CFormText>
+                    <InputMask mask="+99 (99) 99999-9999" className="form-control" placeholder="+00 (00) 00000-0000"/>
+                      <CFormText>Enter your phone number</CFormText>
                   </CCol>
                   <CCol md="2">
                     <CLabel htmlFor="mobile">Mobile Number *</CLabel>
                   </CCol>
                   <CCol xs="12" md="3">
-                    <CInput id="mobile" name="mobile" value={user ? user.mobile : ''} placeholder="(000) 000-0000"/>
+                    <InputMask mask="+99 (99) 99999-9999" className="form-control" placeholder="+00 (00) 00000-0000"/>
                     <CFormText>Now your mobile number</CFormText>
                   </CCol>
                 </CFormGroup>
