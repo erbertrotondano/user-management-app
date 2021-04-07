@@ -89,6 +89,10 @@ const ListUsers = () => {
       }
     ))
   }
+
+  const handleInactiveButton = (id) => {
+    setUsers(users.map( (user) => user.id === id ? {...user, status: 'Inactive'} : user ) )
+  }
 	return (
 		<div> 
 			<CCard>
@@ -146,6 +150,7 @@ const ListUsers = () => {
                   <CButton
                     color="danger"
                     variant="ghost"
+                    onClick={() => handleInactiveButton(user.id)}
                     >
                     <CIcon name="cil-x" className="mx-1"/>
                   </CButton>
